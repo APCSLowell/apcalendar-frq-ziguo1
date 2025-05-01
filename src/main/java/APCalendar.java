@@ -13,7 +13,12 @@ public class APCalendar
   public static int numberOfLeapYears(int year1, int year2)
   { 
     /* to be implemented in part (a) */
-
+    int count = 0;
+    for (int offset = 0; offset + year1 <= year2; offset++) {
+      int calcYear = year1 + offset;
+      if (isLeapYear(calcYear)) count++;
+    }
+    return count;
   }
   
   /** Returns the value representing the day of the week for the first day of year,
@@ -52,5 +57,12 @@ public class APCalendar
   public static int dayOfWeek(int month, int day, int year)
   {
     /* to be implemented in part (b) */
+    int yearWeekOffset = firstDayOfYear(year) + ((dayOfYear(month, day, year) - 1) % 7);
+    return yearWeekOffset % 7;
+
+    // tried 2 times
+    // reflection: ywioffset was actually right. but i removed the -1 increment when trying to debug it (which was incorrect)
+    // reflection: forgot to do % 7 on return stmt
+    // fixes: 2nd reflection, aka return `yearWeekOffset % 7` instead of just `yearWeekOffset`
   }
 }
